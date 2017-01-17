@@ -106,6 +106,20 @@ public class Function {
         }
         return bool;
     }
+    public Date convertDate(String indate) {
+        Date dateString = null;
+
+        SimpleDateFormat diff = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+
+            dateString = diff.parse(indate);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return dateString;
+    }
     
 
 }
