@@ -4,8 +4,9 @@ import connexion.ConnectBase;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Function {
 
@@ -32,28 +33,26 @@ public class Function {
         }
         return status;
     }
-     public boolean verifEmploye(String employe){
-          
-         boolean bool=false; 
-             try
-              {
-                Statement stm = c.createStatement ();
-                ResultSet rs = stm.executeQuery("select idpersonne from personne where nom = '"+employe+"'");
-                while(rs.next()){
-                    if(rs.getString("idpersonne")!=null){
-                        bool = true;
-                    }
-                    else{
-                        bool = false;
-                    }
+
+    public boolean verifEmploye(String employe) {
+
+        boolean bool = false;
+        try {
+            Statement stm = c.createStatement();
+            ResultSet rs = stm.executeQuery("select idpersonne from personne where nom = '" + employe + "'");
+            while (rs.next()) {
+                if (rs.getString("idpersonne") != null) {
+                    bool = true;
+                } else {
+                    bool = false;
                 }
-               }
-                catch(Exception e)
-                {
-                    System.out.println(e.getMessage());
-                }
-             return bool;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return bool;
     }
+
     public int updateToTable(Object o, String nomTable, String[] nomColFiltre, String[][] filtre) throws Exception {
         String where = "";
         c = con.connect();
@@ -69,9 +68,9 @@ public class Function {
             }
         }
         requete = requete + where;
-        
+
         try {
-            stmt = c.createStatement();            
+            stmt = c.createStatement();
             stmt.executeUpdate(requete);
             String comm = "commit";
             stmt.executeUpdate(comm);
@@ -84,5 +83,29 @@ public class Function {
         }
         return status;
     }
+
+    public boolean verweekend(String daty) {
+        Date dateString = null;
+        boolean bool = false;
+        int rep = 0;
+        SimpleDateFormat diff = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+
+            dateString = diff.parse(daty);
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        SimpleDateFormat spt = new SimpleDateFormat("u");
+        rep = Integer.parseInt(spt.format(dateString));
+        if (rep == 6 || rep == 7) {
+            bool = true;
+        } else {
+            bool = false;
+        }
+        return bool;
+    }
+    
 
 }

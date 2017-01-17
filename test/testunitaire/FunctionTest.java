@@ -89,5 +89,20 @@ public class FunctionTest {
        // fail("The test case is a prototype.");
     }
 
+    /**
+     * Test of verweekend method, of class Function.
+     */
+    @Test
+    public void testVerweekend() {
+        System.out.println("verweekend");
+        String daty = "2017-01-21";
+        Function instance = new Function();
+        boolean expResult = true;
+        boolean result = instance.verweekend(daty);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+
     
 }
